@@ -1,9 +1,12 @@
 package net.yscs.android.square_progressbar;
 
+import java.text.DecimalFormat;
+
 import net.yscs.android.square_progressbar.utils.CalculationUtil;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Paint.Align;
 import android.graphics.Paint.Style;
 import android.graphics.Path;
 import android.util.AttributeSet;
@@ -14,6 +17,7 @@ public class SquareProgressView extends View {
 	private double progress;
 	private final Paint progressBarPaint;
 	private final Paint outlinePaint;
+	private final Paint textPaint;
 
 	private float widthInDp = 0;
 	private float strokewidth = 0;
@@ -21,6 +25,7 @@ public class SquareProgressView extends View {
 
 	private boolean outline = false;
 	private boolean startline = false;
+	private boolean showProgress = false;
 
 	public SquareProgressView(Context context) {
 		super(context);
@@ -38,6 +43,14 @@ public class SquareProgressView extends View {
 		outlinePaint.setStrokeWidth(1);
 		outlinePaint.setAntiAlias(true);
 		outlinePaint.setStyle(Style.STROKE);
+
+		textPaint = new Paint();
+		textPaint.setColor(context.getResources().getColor(
+				android.R.color.black));
+		textPaint.setTextSize(90);
+		textPaint.setAntiAlias(true);
+		textPaint.setStyle(Style.STROKE);
+
 	}
 
 	public SquareProgressView(Context context, AttributeSet attrs, int defStyle) {
@@ -56,6 +69,13 @@ public class SquareProgressView extends View {
 		outlinePaint.setStrokeWidth(1);
 		outlinePaint.setAntiAlias(true);
 		outlinePaint.setStyle(Style.STROKE);
+
+		textPaint = new Paint();
+		textPaint.setColor(context.getResources().getColor(
+				android.R.color.black));
+		textPaint.setTextSize(90);
+		textPaint.setAntiAlias(true);
+		textPaint.setStyle(Style.STROKE);
 	}
 
 	public SquareProgressView(Context context, AttributeSet attrs) {
@@ -74,6 +94,13 @@ public class SquareProgressView extends View {
 		outlinePaint.setStrokeWidth(1);
 		outlinePaint.setAntiAlias(true);
 		outlinePaint.setStyle(Style.STROKE);
+
+		textPaint = new Paint();
+		textPaint.setColor(context.getResources().getColor(
+				android.R.color.black));
+		textPaint.setTextSize(90);
+		textPaint.setAntiAlias(true);
+		textPaint.setStyle(Style.STROKE);
 	}
 
 	@Override
@@ -92,6 +119,10 @@ public class SquareProgressView extends View {
 
 		if (isStartline()) {
 			drawStartline();
+		}
+
+		if (showProgress) {
+			drawPercent();
 		}
 
 		Path path = new Path();
@@ -247,6 +278,22 @@ public class SquareProgressView extends View {
 
 	public void setStartline(boolean startline) {
 		this.startline = startline;
+		this.invalidate();
+	}
+
+	private void drawPercent() {
+		DecimalFormat df = new DecimalFormat("###");
+		textPaint.setTextAlign(Align.CENTER);
+		canvas.drawText(df.format(getProgress()) + "%", canvas.getWidth() / 2,
+				(canvas.getHeight() - textPaint.ascent()) / 2, textPaint);
+	}
+
+	public boolean isShowProgress() {
+		return showProgress;
+	}
+
+	public void setShowProgress(boolean showProgress) {
+		this.showProgress = showProgress;
 		this.invalidate();
 	}
 

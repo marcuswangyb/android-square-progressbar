@@ -41,6 +41,7 @@ public class SquareProgressBar extends RelativeLayout {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mInflater.inflate(R.layout.progressbarview, this, true);
 		bar = (SquareProgressView) findViewById(R.id.squareProgressBar1);
+		bar.bringToFront();
 	}
 
 	/**
@@ -58,6 +59,7 @@ public class SquareProgressBar extends RelativeLayout {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mInflater.inflate(R.layout.progressbarview, this, true);
 		bar = (SquareProgressView) findViewById(R.id.squareProgressBar1);
+		bar.bringToFront();
 	}
 
 	/**
@@ -72,6 +74,7 @@ public class SquareProgressBar extends RelativeLayout {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mInflater.inflate(R.layout.progressbarview, this, true);
 		bar = (SquareProgressView) findViewById(R.id.squareProgressBar1);
+		bar.bringToFront();
 	}
 
 	/**
@@ -239,6 +242,14 @@ public class SquareProgressBar extends RelativeLayout {
 
 	public boolean isStartline() {
 		return bar.isStartline();
+	}
+
+	public void showProgress(boolean showProgress) {
+		bar.setShowProgress(showProgress);
+	}
+
+	public boolean isShowProgress() {
+		return bar.isShowProgress();
 	}
 
 }
