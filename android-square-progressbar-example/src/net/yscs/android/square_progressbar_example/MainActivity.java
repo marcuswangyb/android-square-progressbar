@@ -118,9 +118,36 @@ public class MainActivity extends Activity {
 					return styleItem;
 
 				case 13:
+					box.setText("Outline");
+					box.setChecked(squareFragment.squareProgressBar.isOutline());
+					box.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+						@Override
+						public void onCheckedChanged(CompoundButton buttonView,
+								boolean isChecked) {
+							squareFragment.squareProgressBar
+									.drawOutline(isChecked);
+						}
+					});
+					return styleItem;
+
+				case 14:
+					box.setText("Startline");
+					box.setChecked(squareFragment.squareProgressBar
+							.isStartline());
+					box.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+						@Override
+						public void onCheckedChanged(CompoundButton buttonView,
+								boolean isChecked) {
+							squareFragment.squareProgressBar
+									.drawStartline(isChecked);
+						}
+					});
+					return styleItem;
+
+				case 15:
 					title.setText("Image");
 					return headerItem;
-				case 14:
+				case 16:
 					imagePreview.setImageResource(R.drawable.city);
 					imageDesc.setText("sunrise at the city");
 					imageItem.setOnClickListener(new OnClickListener() {
@@ -132,7 +159,7 @@ public class MainActivity extends Activity {
 						}
 					});
 					return imageItem;
-				case 15:
+				case 17:
 					imagePreview
 							.setImageResource(R.drawable.millennium_stadium);
 					imageDesc.setText("the millennium stadium");
@@ -145,7 +172,7 @@ public class MainActivity extends Activity {
 						}
 					});
 					return imageItem;
-				case 16:
+				case 18:
 					imagePreview.setImageResource(R.drawable.edinburgh);
 					imageDesc.setText("carlton hill");
 					imageItem.setOnClickListener(new OnClickListener() {
@@ -157,7 +184,7 @@ public class MainActivity extends Activity {
 						}
 					});
 					return imageItem;
-				case 17:
+				case 19:
 					imagePreview.setImageResource(R.drawable.holyroodpark);
 					imageDesc.setText("holyrood park");
 					imageItem.setOnClickListener(new OnClickListener() {
@@ -169,10 +196,10 @@ public class MainActivity extends Activity {
 						}
 					});
 					return imageItem;
-				case 18:
+				case 20:
 					title.setText("Source");
 					return headerItem;
-				case 19:
+				case 21:
 					String text = "<font color=#4183C4>mrwonderman</font>/<b><font color=#4183C4>android-square-progressbar</font></b>";
 					githublink.setText(Html.fromHtml(text));
 					githubItem.setOnClickListener(new OnClickListener() {
@@ -186,7 +213,7 @@ public class MainActivity extends Activity {
 						}
 					});
 					return githubItem;
-				case 20:
+				case 22:
 					signerItem.setOnClickListener(new OnClickListener() {
 
 						@Override

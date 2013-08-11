@@ -224,4 +224,21 @@ public class SquareProgressBar extends RelativeLayout {
 	public boolean isGreyscale() {
 		return greyscale;
 	}
+
+	public void drawOutline(boolean drawOutline) {
+		bar.setOutline(drawOutline);
+	}
+
+	public boolean isOutline() {
+		return bar.isOutline();
+	}
+
+	public void drawStartline(boolean drawStartline) {
+		bar.setStartline(drawStartline);
+	}
+
+	public boolean isStartline() {
+		return bar.isStartline();
+	}
+
 }

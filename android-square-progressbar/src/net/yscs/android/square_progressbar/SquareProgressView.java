@@ -13,9 +13,14 @@ public class SquareProgressView extends View {
 
 	private double progress;
 	private final Paint progressBarPaint;
+	private final Paint outlinePaint;
 
 	private float widthInDp = 0;
 	private float strokewidth = 0;
+	private Canvas canvas;
+
+	private boolean outline = false;
+	private boolean startline = false;
 
 	public SquareProgressView(Context context) {
 		super(context);
@@ -26,6 +31,13 @@ public class SquareProgressView extends View {
 				widthInDp, getContext()));
 		progressBarPaint.setAntiAlias(true);
 		progressBarPaint.setStyle(Style.STROKE);
+
+		outlinePaint = new Paint();
+		outlinePaint.setColor(context.getResources().getColor(
+				android.R.color.black));
+		outlinePaint.setStrokeWidth(1);
+		outlinePaint.setAntiAlias(true);
+		outlinePaint.setStyle(Style.STROKE);
 	}
 
 	public SquareProgressView(Context context, AttributeSet attrs, int defStyle) {
@@ -37,6 +49,13 @@ public class SquareProgressView extends View {
 				widthInDp, getContext()));
 		progressBarPaint.setAntiAlias(true);
 		progressBarPaint.setStyle(Style.STROKE);
+
+		outlinePaint = new Paint();
+		outlinePaint.setColor(context.getResources().getColor(
+				android.R.color.black));
+		outlinePaint.setStrokeWidth(1);
+		outlinePaint.setAntiAlias(true);
+		outlinePaint.setStyle(Style.STROKE);
 	}
 
 	public SquareProgressView(Context context, AttributeSet attrs) {
@@ -48,16 +67,33 @@ public class SquareProgressView extends View {
 				widthInDp, getContext()));
 		progressBarPaint.setAntiAlias(true);
 		progressBarPaint.setStyle(Style.STROKE);
+
+		outlinePaint = new Paint();
+		outlinePaint.setColor(context.getResources().getColor(
+				android.R.color.black));
+		outlinePaint.setStrokeWidth(1);
+		outlinePaint.setAntiAlias(true);
+		outlinePaint.setStyle(Style.STROKE);
 	}
 
 	@Override
 	protected void onDraw(Canvas canvas) {
+		this.canvas = canvas;
 		super.onDraw(canvas);
 		strokewidth = CalculationUtil.convertDpToPx(widthInDp, getContext());
 		float scope = canvas.getWidth() + canvas.getHeight()
 				+ canvas.getHeight() + canvas.getWidth();
 		float percent = (scope / 100) * Float.valueOf(String.valueOf(progress));
 		float halfOfTheImage = canvas.getWidth() / 2;
+
+		if (outline) {
+			drawOutline();
+		}
+
+		if (isStartline()) {
+			drawStartline();
+		}
+
 		Path path = new Path();
 		if (percent > halfOfTheImage) {
 			paintFirstHalfOfTheTop(canvas);
@@ -109,6 +145,24 @@ public class SquareProgressView extends View {
 			path.lineTo(halfOfTheImage + percent, strokewidth / 2);
 			canvas.drawPath(path, progressBarPaint);
 		}
+	}
+
+	private void drawStartline() {
+		Path outlinePath = new Path();
+		outlinePath.moveTo(canvas.getWidth() / 2, 0);
+		outlinePath.lineTo(canvas.getWidth() / 2, strokewidth);
+		canvas.drawPath(outlinePath, outlinePaint);
+	}
+
+	private Path drawOutline() {
+		Path outlinePath = new Path();
+		outlinePath.moveTo(0, 0);
+		outlinePath.lineTo(canvas.getWidth(), 0);
+		outlinePath.lineTo(canvas.getWidth(), canvas.getHeight());
+		outlinePath.lineTo(0, canvas.getHeight());
+		outlinePath.lineTo(0, 0);
+		canvas.drawPath(outlinePath, outlinePaint);
+		return outlinePath;
 	}
 
 	public void paintFirstHalfOfTheTop(Canvas canvas) {
@@ -175,6 +229,24 @@ public class SquareProgressView extends View {
 		this.widthInDp = width;
 		progressBarPaint.setStrokeWidth(CalculationUtil.convertDpToPx(
 				widthInDp, getContext()));
+		this.invalidate();
+	}
+
+	public boolean isOutline() {
+		return outline;
+	}
+
+	public void setOutline(boolean outline) {
+		this.outline = outline;
+		this.invalidate();
+	}
+
+	public boolean isStartline() {
+		return startline;
+	}
+
+	public void setStartline(boolean startline) {
+		this.startline = startline;
 		this.invalidate();
 	}
 
