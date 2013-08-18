@@ -23,7 +23,6 @@ public class PreviewView extends View {
 		paintPaint.setColor(context.getResources().getColor(
 				android.R.color.black));
 		paintPaint.setAntiAlias(true);
-		paintPaint.setStrokeWidth(1);
 		paintPaint.setStyle(Style.STROKE);
 	}
 
@@ -34,7 +33,6 @@ public class PreviewView extends View {
 		paintPaint.setColor(context.getResources().getColor(
 				android.R.color.black));
 		paintPaint.setAntiAlias(true);
-		paintPaint.setStrokeWidth(1);
 		paintPaint.setStyle(Style.STROKE);
 	}
 
@@ -45,7 +43,6 @@ public class PreviewView extends View {
 		paintPaint.setColor(context.getResources().getColor(
 				android.R.color.black));
 		paintPaint.setAntiAlias(true);
-		paintPaint.setStrokeWidth(1);
 		paintPaint.setStyle(Style.STROKE);
 	}
 
