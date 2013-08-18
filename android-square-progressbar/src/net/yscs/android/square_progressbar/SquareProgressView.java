@@ -3,6 +3,7 @@ package net.yscs.android.square_progressbar;
 import java.text.DecimalFormat;
 
 import net.yscs.android.square_progressbar.utils.CalculationUtil;
+import net.yscs.android.square_progressbar.utils.PercentSettings;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -27,6 +28,9 @@ public class SquareProgressView extends View {
 	private boolean startline = false;
 	private boolean showProgress = false;
 
+	private PercentSettings percentSettings = new PercentSettings(Align.CENTER,
+			150, true);
+
 	public SquareProgressView(Context context) {
 		super(context);
 		progressBarPaint = new Paint();
@@ -47,7 +51,6 @@ public class SquareProgressView extends View {
 		textPaint = new Paint();
 		textPaint.setColor(context.getResources().getColor(
 				android.R.color.black));
-		textPaint.setTextSize(90);
 		textPaint.setAntiAlias(true);
 		textPaint.setStyle(Style.STROKE);
 
@@ -73,7 +76,6 @@ public class SquareProgressView extends View {
 		textPaint = new Paint();
 		textPaint.setColor(context.getResources().getColor(
 				android.R.color.black));
-		textPaint.setTextSize(90);
 		textPaint.setAntiAlias(true);
 		textPaint.setStyle(Style.STROKE);
 	}
@@ -98,7 +100,6 @@ public class SquareProgressView extends View {
 		textPaint = new Paint();
 		textPaint.setColor(context.getResources().getColor(
 				android.R.color.black));
-		textPaint.setTextSize(90);
 		textPaint.setAntiAlias(true);
 		textPaint.setStyle(Style.STROKE);
 	}
@@ -122,7 +123,7 @@ public class SquareProgressView extends View {
 		}
 
 		if (showProgress) {
-			drawPercent();
+			drawPercent(percentSettings);
 		}
 
 		Path path = new Path();
@@ -185,7 +186,7 @@ public class SquareProgressView extends View {
 		canvas.drawPath(outlinePath, outlinePaint);
 	}
 
-	private Path drawOutline() {
+	private void drawOutline() {
 		Path outlinePath = new Path();
 		outlinePath.moveTo(0, 0);
 		outlinePath.lineTo(canvas.getWidth(), 0);
@@ -193,7 +194,6 @@ public class SquareProgressView extends View {
 		outlinePath.lineTo(0, canvas.getHeight());
 		outlinePath.lineTo(0, 0);
 		canvas.drawPath(outlinePath, outlinePaint);
-		return outlinePath;
 	}
 
 	public void paintFirstHalfOfTheTop(Canvas canvas) {
@@ -281,11 +281,34 @@ public class SquareProgressView extends View {
 		this.invalidate();
 	}
 
-	private void drawPercent() {
-		DecimalFormat df = new DecimalFormat("###");
-		textPaint.setTextAlign(Align.CENTER);
-		canvas.drawText(df.format(getProgress()) + "%", canvas.getWidth() / 2,
-				(canvas.getHeight() - textPaint.ascent()) / 2, textPaint);
+	/**
+	 * Draws the current percent.
+	 * 
+	 * @param align
+	 *            a {@link Paint.Align} like center or so.
+	 * @param textSize
+	 *            the size of the text, the percent gets written
+	 * @param percentSign
+	 *            with or without "<i>%</i>"
+	 */
+	private void drawPercent(PercentSettings setting) {
+		textPaint.setTextAlign(setting.getAlign());
+		if (setting.getTextSize() == 0) {
+			textPaint.setTextSize((canvas.getHeight() / 10) * 4);
+		} else {
+			textPaint.setTextSize(setting.getTextSize());
+		}
+
+		String percentString = new DecimalFormat("###").format(getProgress());
+		if (setting.isPercentSign()) {
+			percentString = percentString + "%";
+		}
+
+		canvas.drawText(
+				percentString,
+				canvas.getWidth() / 2,
+				(int) ((canvas.getHeight() / 2) - ((textPaint.descent() + textPaint
+						.ascent()) / 2)), textPaint);
 	}
 
 	public boolean isShowProgress() {
@@ -295,6 +318,15 @@ public class SquareProgressView extends View {
 	public void setShowProgress(boolean showProgress) {
 		this.showProgress = showProgress;
 		this.invalidate();
+	}
+
+	public void setPercentSettings(PercentSettings percentSettings) {
+		this.percentSettings = percentSettings;
+		this.invalidate();
+	}
+
+	public PercentSettings getPercentSettings() {
+		return percentSettings;
 	}
 
 }

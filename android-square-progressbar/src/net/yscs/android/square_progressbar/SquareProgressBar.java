@@ -1,6 +1,7 @@
 package net.yscs.android.square_progressbar;
 
 import net.yscs.android.square_progressbar.utils.CalculationUtil;
+import net.yscs.android.square_progressbar.utils.PercentSettings;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
@@ -250,6 +251,14 @@ public class SquareProgressBar extends RelativeLayout {
 
 	public boolean isShowProgress() {
 		return bar.isShowProgress();
+	}
+
+	public void setSettings(PercentSettings percentSettings) {
+		bar.setPercentSettings(percentSettings);
+	}
+
+	public PercentSettings getSettings() {
+		return bar.getPercentSettings();
 	}
 
 }

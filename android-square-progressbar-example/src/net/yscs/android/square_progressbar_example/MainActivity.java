@@ -2,7 +2,7 @@ package net.yscs.android.square_progressbar_example;
 
 import java.util.ArrayList;
 
-import android.R.color;
+import net.yscs.android.square_progressbar.utils.ColourUtil;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -78,6 +78,15 @@ public class MainActivity extends Activity {
 				CheckBox box = (CheckBox) styleItem
 						.findViewById(R.id.checkBox1);
 
+				// Custom Style Item
+				View styleBoxItem = LayoutInflater
+						.from(getApplicationContext()).inflate(
+								R.layout.lv_style_box, parent, false);
+				CheckBox styleBox = (CheckBox) styleBoxItem
+						.findViewById(R.id.checkBox11);
+				ImageView styleImage = (ImageView) styleBoxItem
+						.findViewById(R.id.imageView1);
+
 				// Link to Github Item
 				View githubItem = LayoutInflater.from(getApplicationContext())
 						.inflate(R.layout.lv_github, parent, false);
@@ -145,10 +154,10 @@ public class MainActivity extends Activity {
 					return styleItem;
 
 				case 15:
-					box.setText("Show percent");
-					box.setChecked(squareFragment.squareProgressBar
+					styleBox.setText("Show percent");
+					styleBox.setChecked(squareFragment.squareProgressBar
 							.isShowProgress());
-					box.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+					styleBox.setOnCheckedChangeListener(new OnCheckedChangeListener() {
 						@Override
 						public void onCheckedChanged(CompoundButton buttonView,
 								boolean isChecked) {
@@ -156,7 +165,31 @@ public class MainActivity extends Activity {
 									.showProgress(isChecked);
 						}
 					});
-					return styleItem;
+					styleImage.setOnClickListener(new OnClickListener() {
+
+						@Override
+						public void onClick(View arg0) {
+							final PercentDialog percentDialog = new PercentDialog(
+									MainActivity.this);
+							percentDialog.show();
+							percentDialog
+									.setSettings(squareFragment.squareProgressBar
+											.getSettings());
+							percentDialog.getSaveButton().setOnClickListener(
+									new OnClickListener() {
+
+										@Override
+										public void onClick(View v) {
+											squareFragment.squareProgressBar
+													.setSettings(percentDialog
+															.getSettings());
+											percentDialog.cancel();
+
+										}
+									});
+						}
+					});
+					return styleBoxItem;
 				case 16:
 					title.setText("Image");
 					return headerItem;
@@ -242,18 +275,7 @@ public class MainActivity extends Activity {
 					break;
 				}
 
-				// all holo colours
-				ArrayList<Integer> colourArray = new ArrayList<Integer>();
-				colourArray.add(color.holo_blue_bright);
-				colourArray.add(color.holo_blue_dark);
-				colourArray.add(color.holo_blue_light);
-				colourArray.add(color.holo_green_dark);
-				colourArray.add(color.holo_green_light);
-				colourArray.add(color.holo_orange_dark);
-				colourArray.add(color.holo_orange_light);
-				colourArray.add(color.holo_purple);
-				colourArray.add(color.holo_red_dark);
-				colourArray.add(color.holo_red_light);
+				ArrayList<Integer> colourArray = ColourUtil.getColourArray();
 
 				if (position <= 10) {
 					Context context = getApplicationContext();
