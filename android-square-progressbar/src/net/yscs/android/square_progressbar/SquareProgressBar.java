@@ -22,7 +22,7 @@ public class SquareProgressBar extends RelativeLayout {
 
 	private ImageView imageView;
 	private final SquareProgressView bar;
-	private boolean opacity;
+	private boolean opacity = false;
 	private boolean greyscale;
 
 	/**
