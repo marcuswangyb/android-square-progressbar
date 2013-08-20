@@ -1,6 +1,6 @@
 package net.yscs.android.square_progressbar_example;
 
-import net.yscs.android.square_progressbar.utils.PercentSettings;
+import net.yscs.android.square_progressbar.utils.PercentStyle;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Paint.Align;
@@ -18,6 +18,12 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+/**
+ * THe dialog to set some example values for the percent text.
+ * 
+ * @author ysigner
+ * @since 1.3.0
+ */
 public class PercentDialog extends Dialog {
 
 	private final Spinner spinner;
@@ -27,6 +33,13 @@ public class PercentDialog extends Dialog {
 	private int size;
 	private final PreviewView previewView;
 
+	/**
+	 * The {@link PercentDialog} to set custom settings for the style of the
+	 * percent text.
+	 * 
+	 * @param context
+	 *            the context.
+	 */
 	public PercentDialog(final Context context) {
 		super(context);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -45,7 +58,7 @@ public class PercentDialog extends Dialog {
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
-				redraw();
+				redrawPreview();
 			}
 
 			@Override
@@ -87,7 +100,7 @@ public class PercentDialog extends Dialog {
 			public void onProgressChanged(SeekBar arg0, int arg1, boolean arg2) {
 				size = arg1;
 				progress.setText(arg1 + " dp");
-				redraw();
+				redrawPreview();
 			}
 		});
 
@@ -97,25 +110,41 @@ public class PercentDialog extends Dialog {
 			@Override
 			public void onCheckedChanged(CompoundButton buttonView,
 					boolean isChecked) {
-				redraw();
+				redrawPreview();
 			}
 		});
 
-		previewView.drawText(150, Align.CENTER, true);
 	}
 
-	public PercentSettings getSettings() {
-		return new PercentSettings(Align.valueOf((String) spinner
+	/**
+	 * Returns the {@link PercentStyle} of the current settings.
+	 * 
+	 * @return a new {@link PercentStyle}.
+	 */
+	public PercentStyle getSettings() {
+		return new PercentStyle(Align.valueOf((String) spinner
 				.getSelectedItem()), Float.valueOf(bar.getProgress()),
 				box.isChecked());
 	}
 
+	/**
+	 * Returns the save button of the dialog.
+	 * 
+	 * @return the save {@link Button}.
+	 */
 	public Button getSaveButton() {
 		return saveButton;
 	}
 
-	private Align returnAlign(int arg2) {
-		switch (arg2) {
+	/**
+	 * Returns the {@link Align} according to the position in the dropdown.
+	 * 
+	 * @param position
+	 *            the position in the dropdown.
+	 * @return the according {@link Align}.
+	 */
+	private Align returnAlign(int position) {
+		switch (position) {
 		case 0:
 			return Align.CENTER;
 		case 1:
@@ -127,13 +156,23 @@ public class PercentDialog extends Dialog {
 		}
 	}
 
-	private void redraw() {
+	/**
+	 * Redraws the preview canvas.
+	 */
+	private void redrawPreview() {
 		previewView
 				.drawText(size, returnAlign(spinner.getSelectedItemPosition()),
 						box.isChecked());
 	}
 
-	public void setSettings(PercentSettings settings) {
+	/**
+	 * Sets the {@link PercentStyle} to the settings in the dialog.
+	 * 
+	 * @param settings
+	 *            The {@link PercentStyle}, this is most likely the default
+	 *            settings.
+	 */
+	public void setPercentStyle(PercentStyle settings) {
 		switch (settings.getAlign()) {
 		case CENTER:
 			spinner.setSelection(0);
@@ -151,6 +190,5 @@ public class PercentDialog extends Dialog {
 
 		bar.setProgress(Math.round(settings.getTextSize()));
 		box.setChecked(settings.isPercentSign());
-
 	}
 }

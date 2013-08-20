@@ -3,7 +3,7 @@ package net.yscs.android.square_progressbar;
 import java.text.DecimalFormat;
 
 import net.yscs.android.square_progressbar.utils.CalculationUtil;
-import net.yscs.android.square_progressbar.utils.PercentSettings;
+import net.yscs.android.square_progressbar.utils.PercentStyle;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -28,8 +28,8 @@ public class SquareProgressView extends View {
 	private boolean startline = false;
 	private boolean showProgress = false;
 
-	private PercentSettings percentSettings = new PercentSettings(Align.CENTER,
-			150, true);
+	private PercentStyle percentSettings = new PercentStyle(Align.CENTER, 150,
+			true);
 
 	public SquareProgressView(Context context) {
 		super(context);
@@ -281,17 +281,7 @@ public class SquareProgressView extends View {
 		this.invalidate();
 	}
 
-	/**
-	 * Draws the current percent.
-	 * 
-	 * @param align
-	 *            a {@link Paint.Align} like center or so.
-	 * @param textSize
-	 *            the size of the text, the percent gets written
-	 * @param percentSign
-	 *            with or without "<i>%</i>"
-	 */
-	private void drawPercent(PercentSettings setting) {
+	private void drawPercent(PercentStyle setting) {
 		textPaint.setTextAlign(setting.getAlign());
 		if (setting.getTextSize() == 0) {
 			textPaint.setTextSize((canvas.getHeight() / 10) * 4);
@@ -320,12 +310,12 @@ public class SquareProgressView extends View {
 		this.invalidate();
 	}
 
-	public void setPercentSettings(PercentSettings percentSettings) {
+	public void setPercentStyle(PercentStyle percentSettings) {
 		this.percentSettings = percentSettings;
 		this.invalidate();
 	}
 
-	public PercentSettings getPercentSettings() {
+	public PercentStyle getPercentStyle() {
 		return percentSettings;
 	}
 

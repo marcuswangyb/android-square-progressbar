@@ -1,7 +1,7 @@
 package net.yscs.android.square_progressbar;
 
 import net.yscs.android.square_progressbar.utils.CalculationUtil;
-import net.yscs.android.square_progressbar.utils.PercentSettings;
+import net.yscs.android.square_progressbar.utils.PercentStyle;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
@@ -16,7 +16,7 @@ import android.widget.RelativeLayout;
  * need to modify your {@link SquareProgressBar}.
  * 
  * @author ysigner
- * @since 1.0
+ * @since 1.0.0
  */
 public class SquareProgressBar extends RelativeLayout {
 
@@ -34,7 +34,7 @@ public class SquareProgressBar extends RelativeLayout {
 	 *            an {@link AttributeSet}
 	 * @param defStyle
 	 *            a defined style.
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public SquareProgressBar(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -52,7 +52,7 @@ public class SquareProgressBar extends RelativeLayout {
 	 *            the {@link Context}
 	 * @param attrs
 	 *            an {@link AttributeSet}
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public SquareProgressBar(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -67,7 +67,7 @@ public class SquareProgressBar extends RelativeLayout {
 	 * New SquareProgressBar.
 	 * 
 	 * @param context
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public SquareProgressBar(Context context) {
 		super(context);
@@ -99,7 +99,7 @@ public class SquareProgressBar extends RelativeLayout {
 	 * 
 	 * @param progress
 	 *            the progress
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public void setProgress(double progress) {
 		bar.setProgress(progress);
@@ -128,7 +128,7 @@ public class SquareProgressBar extends RelativeLayout {
 	 * </ul>
 	 * 
 	 * @param androidHoloColor
-	 * @since 1.0
+	 * @since 1.0.0
 	 */
 	public void setHoloColor(int androidHoloColor) {
 		bar.setColor(getContext().getResources().getColor(androidHoloColor));
@@ -140,7 +140,7 @@ public class SquareProgressBar extends RelativeLayout {
 	 * 
 	 * @param colorString
 	 *            the colour of the {@link SquareProgressBar}
-	 * @since 1.1
+	 * @since 1.1.0
 	 */
 	public void setColor(String colorString) {
 		bar.setColor(Color.parseColor(colorString));
@@ -155,7 +155,7 @@ public class SquareProgressBar extends RelativeLayout {
 	 *            green
 	 * @param b
 	 *            blue¨
-	 * @since 1.1
+	 * @since 1.1.0
 	 */
 	public void setColorRGB(int r, int g, int b) {
 		bar.setColor(Color.rgb(r, g, b));
@@ -166,7 +166,7 @@ public class SquareProgressBar extends RelativeLayout {
 	 * 
 	 * @param width
 	 *            in Dp
-	 * @since 1.1
+	 * @since 1.1.0
 	 */
 	public void setWidth(int width) {
 		int padding = CalculationUtil.convertDpToPx(width, getContext());
@@ -197,6 +197,7 @@ public class SquareProgressBar extends RelativeLayout {
 	 * 
 	 * @param opacity
 	 *            true if opacity should be enabled.
+	 * @since 1.2.0
 	 */
 	public void setOpacity(boolean opacity) {
 		this.opacity = opacity;
@@ -209,6 +210,7 @@ public class SquareProgressBar extends RelativeLayout {
 	 * 
 	 * @param greyscale
 	 *            true if the grayscale should be activated.
+	 * @since 1.2.0 / but never used in the example application
 	 */
 	public void setImageGrayscale(boolean greyscale) {
 		this.greyscale = greyscale;
@@ -221,44 +223,119 @@ public class SquareProgressBar extends RelativeLayout {
 		}
 	}
 
+	/**
+	 * If opacity is enabled.
+	 * 
+	 * @return true if opacity is enabled.
+	 */
 	public boolean isOpacity() {
 		return opacity;
 	}
 
+	/**
+	 * If greyscale is enabled.
+	 * 
+	 * @return true if greyscale is enabled.
+	 */
 	public boolean isGreyscale() {
 		return greyscale;
 	}
 
+	/**
+	 * Draws an outline of the progressbar. Looks quite cool in some situations.
+	 * 
+	 * @param drawOutline
+	 *            true if it should or not.
+	 * @since 1.3.0
+	 */
 	public void drawOutline(boolean drawOutline) {
 		bar.setOutline(drawOutline);
 	}
 
+	/**
+	 * If outline is enabled or not.
+	 * 
+	 * @return true if outline is enabled.
+	 */
 	public boolean isOutline() {
 		return bar.isOutline();
 	}
 
+	/**
+	 * Draws the startline. this is the line where the progressbar starts the
+	 * drawing around the image.
+	 * 
+	 * @param drawStartline
+	 *            true if it should or not.
+	 * @since 1.3.0
+	 */
 	public void drawStartline(boolean drawStartline) {
 		bar.setStartline(drawStartline);
 	}
 
+	/**
+	 * If the startline is enabled.
+	 * 
+	 * @return true if startline is enabled or not.
+	 */
 	public boolean isStartline() {
 		return bar.isStartline();
 	}
 
+	/**
+	 * Defines if the percent text should be shown or not. To modify the text
+	 * checkout {@link #setPercentStyle(PercentStyle)}.
+	 * 
+	 * @param showProgress
+	 *            true if it should or not.
+	 * @since 1.3.0
+	 */
 	public void showProgress(boolean showProgress) {
 		bar.setShowProgress(showProgress);
 	}
 
+	/**
+	 * If the progress text inside of the image is enabled.
+	 * 
+	 * @return true if it is or not.
+	 */
 	public boolean isShowProgress() {
 		return bar.isShowProgress();
 	}
 
-	public void setSettings(PercentSettings percentSettings) {
-		bar.setPercentSettings(percentSettings);
+	/**
+	 * Sets a custom percent style to the text inside the image. Make sure you
+	 * set {@link #showProgress(boolean)} to true. Otherwise it doesn't shows.
+	 * The default settings are:</br>
+	 * <table>
+	 * <tr>
+	 * <th>Text align</td>
+	 * <td>CENTER</td>
+	 * </tr>
+	 * <tr>
+	 * <th>Text size</td>
+	 * <td>150 [dp]</td>
+	 * </tr>
+	 * <tr>
+	 * <th>Display percentsign</td>
+	 * <td>true</td>
+	 * </tr>
+	 * </table>
+	 * 
+	 * @param percentStyle
+	 */
+	public void setPercentStyle(PercentStyle percentStyle) {
+		bar.setPercentStyle(percentStyle);
 	}
 
-	public PercentSettings getSettings() {
-		return bar.getPercentSettings();
+	/**
+	 * Returns the {@link PercentStyle} of the percent text. Maybe returns the
+	 * default value, check {@link #setPercentStyle(PercentStyle)} fo that.
+	 * 
+	 * @return the percent style of the moment.
+	 */
+	public PercentStyle getPercentStyle() {
+		return bar.getPercentStyle();
 	}
 
 }

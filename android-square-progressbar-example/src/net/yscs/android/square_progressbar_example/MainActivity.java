@@ -173,17 +173,17 @@ public class MainActivity extends Activity {
 									MainActivity.this);
 							percentDialog.show();
 							percentDialog
-									.setSettings(squareFragment.squareProgressBar
-											.getSettings());
+									.setPercentStyle(squareFragment.squareProgressBar
+											.getPercentStyle());
 							percentDialog.getSaveButton().setOnClickListener(
 									new OnClickListener() {
 
 										@Override
 										public void onClick(View v) {
 											squareFragment.squareProgressBar
-													.setSettings(percentDialog
+													.setPercentStyle(percentDialog
 															.getSettings());
-											percentDialog.cancel();
+											percentDialog.dismiss();
 
 										}
 									});

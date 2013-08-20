@@ -3,16 +3,16 @@ package net.yscs.android.square_progressbar.utils;
 import android.graphics.Paint;
 import android.graphics.Paint.Align;
 
-public class PercentSettings {
+public class PercentStyle {
 	private Paint.Align align;
 	private float textSize;
 	private boolean percentSign;
 
-	public PercentSettings() {
+	public PercentStyle() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public PercentSettings(Align align, float textSize, boolean percentSign) {
+	public PercentStyle(Align align, float textSize, boolean percentSign) {
 		super();
 		this.align = align;
 		this.textSize = textSize;
