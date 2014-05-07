@@ -3,6 +3,7 @@ package net.yscs.android.square_progressbar;
 import net.yscs.android.square_progressbar.utils.CalculationUtil;
 import net.yscs.android.square_progressbar.utils.PercentStyle;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
@@ -92,6 +93,17 @@ public class SquareProgressBar extends RelativeLayout {
 		imageView.setImageResource(image);
 
 	}
+	
+	/**
+	 * Sets the image of the {@link SquareProgressBar}. Must be a Bitmap
+	 *
+	 * @param bitmap  
+	 * @since 1.4
+	 */
+	public void setImageBitmap(Bitmap bitmap) {
+		imageView = (ImageView) findViewById(R.id.imageView1);
+		imageView.setImageBitmap(bitmap);
+	}
 
 	/**
 	 * Sets the image scale type according to {@link ScaleType}.
@@ -164,7 +176,7 @@ public class SquareProgressBar extends RelativeLayout {
 	 * @param g
 	 *            green
 	 * @param b
-	 *            blue�
+	 *            blue锟�
 	 * @since 1.1.0
 	 */
 	public void setColorRGB(int r, int g, int b) {
